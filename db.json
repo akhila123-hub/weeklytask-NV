@@ -1,0 +1,114 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "fullName": "Admin User",
+      "username": "admin",
+      "email": "admin@example.com",
+      "phone": "1234567890",
+      "password": "admin",
+      "role": "admin"
+    },
+    {
+      "id": "83d6",
+      "fullName": "sowmi",
+      "username": "sowmi123",
+      "email": "akhila292002@gmail.com",
+      "phone": "7339461208",
+      "password": "Akhila@123",
+      "role": "user"
+    },
+    {
+      "id": "baf2",
+      "fullName": "ilam",
+      "username": "ilam@123",
+      "email": "aki29@gmail.com",
+      "phone": "6379002645",
+      "password": "Ilam@123",
+      "role": "user"
+    }
+  ],
+  "cart": [
+    {
+      "id": "280b",
+      "productId": "2fc8",
+      "name": "Standard MW-620H-2AV",
+      "price": 2995,
+      "image": "https://www.casio.com/content/dam/casio/product-info/locales/in/en/timepiece/product/watch/M/MW/mw6/mw-620h-2av/assets/MW-620H-2AV_SQ.jpg.transform/main-visual-pc/image.jpg",
+      "quantity": 1
+    },
+    {
+      "id": "2fc8",
+      "name": "Standard MW-620H-2AV",
+      "price": 2995,
+      "image": "https://www.casio.com/content/dam/casio/product-info/locales/in/en/timepiece/product/watch/M/MW/mw6/mw-620h-2av/assets/MW-620H-2AV_SQ.jpg.transform/main-visual-pc/image.jpg",
+      "quantity": 2
+    }
+  ],
+  "products": [
+    {
+      "id": "123e",
+      "name": "Gc Black Monarch Chronograph Sports Watch",
+      "price": "9999",
+      "image": "https://watchesprime.com/wp-content/uploads/2018/09/13-1624.jpg",
+      "category": "mens",
+      "brand": "GUESS COLLECTION"
+    },
+    {
+      "id": "be25",
+      "name": "Top Brand Luxury Leather ",
+      "price": "2181",
+      "image": "https://cdn7.bigcommerce.com/s-pkla4xn3/images/stencil/1280x1280/products/4436/34744/LIGE-Mens-Watches-Top-Brand-Luxury-Leather-Casual-Quartz-Watch-Men-Military-Sport-Waterproof-Clock-Gold__79354.1522933698.jpg?c=2?imbypass=on",
+      "category": "mens",
+      "brand": "LIGE"
+    },
+    {
+      "id": "2fc8",
+      "name": "Standard MW-620H-2AV",
+      "price": "2995",
+      "image": "https://www.casio.com/content/dam/casio/product-info/locales/in/en/timepiece/product/watch/M/MW/mw6/mw-620h-2av/assets/MW-620H-2AV_SQ.jpg.transform/main-visual-pc/image.jpg",
+      "category": "mens",
+      "brand": "CASIO"
+    },
+    {
+      "id": "2612",
+      "brand": "TITAN",
+      "name": "Titan Octane Black Dial Chronograph Watch",
+      "price": "11650",
+      "image": "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwc07c110a/images/Titan/Catalog/90086KM05_1.jpg?sw=600&sh=600",
+      "category": "female"
+    },
+    {
+      "id": "9d2b",
+      "brand": "TITAN",
+      "name": "Titan Octane Black Dial Chronograph Watch",
+      "price": "11650",
+      "image": "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwc07c110a/images/Titan/Catalog/90086KM05_1.jpg?sw=600&sh=600",
+      "category": "mens"
+    },
+    {
+      "id": "12dd",
+      "brand": "TITAN",
+      "name": "Titan Octane Black Dial Chronograph Watch",
+      "price": "11650",
+      "image": "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwc07c110a/images/Titan/Catalog/90086KM05_1.jpg?sw=600&sh=600",
+      "category": "mens"
+    },
+    {
+      "id": "b67a",
+      "brand": "TITAN-- 12",
+      "name": "Titan Octane Black Dial Chronograph Watch",
+      "price": "11650",
+      "image": "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwc07c110a/images/Titan/Catalog/90086KM05_1.jpg?sw=600&sh=600",
+      "category": "female"
+    },
+    {
+      "id": "3fe8",
+      "brand": "TITAN-- 100",
+      "name": "Titan Octane Black Dial Chronograph Watch",
+      "price": "11650",
+      "image": "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwc07c110a/images/Titan/Catalog/90086KM05_1.jpg?sw=600&sh=600",
+      "category": "female"
+    }
+  ]
+}

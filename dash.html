@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard with Video Background</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="navbar">
+    <h1 class="glow">JUST IN TIME</h1>
+
+    <div class="icons">
+        <i class="user-icon">👩🏻‍💻</i>
+        <i class="cart-icon" id="cart-icon">🛒</i>
+    </div>
+
+    <div id="user-options" style="display: none;">
+        <p><strong id="user-name"></strong></p>
+        <button id="logout-btn">Logout</button>
+    </div>
+</header>
+
+<header>
+    <h1 class="wave-effect">THE ULTIMATE WATCH STORE</h1>
+    <nav>
+        <ul>
+            <li><a href="brand.html">Shop by Brand</a></li>
+            <li><a href="mens.html">Men's Watches</a></li>
+            <li><a href="female.html">Women's Watches</a></li>
+            <li><a href="map.html">JIT Store</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="banner">
+    <div class="banner-bg"></div>
+    <video id="bg-video" autoplay muted loop>
+        <source src="vdeo3.mp4" type="video/mp4">
+    </video>
+    <div class="sale-info">
+        <h1 class="background-text">BEST PRICES</h1>
+        <h2>Timeless Elegance</h2>
+        <h3>Luxury on Your Wrist</h3>
+    </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        changeBackground();
+        applyWaveEffect();
+        loadUserData();
+    });
+
+    function changeBackground() {
+        const images = [
+            'url("https://wallpapercave.com/wp/wp2168277.jpg")',
+            'url("https://images5.alphacoders.com/831/831859.jpg")',
+            'url("https://c.wallhere.com/photos/0f/cb/watch_luxury_watches_Ulysse_Nardin-124299.jpg!d")',
+            'url("https://wallpaperaccess.com/full/795942.jpg")'
+        ];
+        let index = 0;
+        const bannerBg = document.querySelector(".banner-bg");
+        const video = document.getElementById("bg-video");
+
+        function cycleBackground() {
+            if (index < images.length) {
+                bannerBg.style.backgroundImage = images[index];
+                video.style.display = "none";
+                index++;
+                setTimeout(cycleBackground, 2000);
+            } else {
+                bannerBg.style.backgroundImage = "none";
+                video.style.display = "block";
+                video.play();
+                setTimeout(() => {
+                    index = 0;
+                    cycleBackground();
+                }, 100000);
+            }
+        }
+        cycleBackground();
+    }
+
+    function applyWaveEffect() {
+        let h1 = document.querySelector(".wave-effect");
+        let text = h1.innerText;
+        h1.innerHTML = "";
+        text.split("").forEach((letter, index) => {
+            let span = document.createElement("span");
+            span.innerText = letter;
+            if (letter === " ") span.style.marginRight = "10px";
+            span.style.animationDelay = `${index * 0.1}s`;
+            h1.appendChild(span);
+        });
+    }
+
+    function loadUserData() {
+        const loggedInUserId = localStorage.getItem("loggedInUserId");
+        if (loggedInUserId) {
+            fetch("http://localhost:3000/users")
+                .then(res => res.json())
+                .then(users => {
+                    const user = users.find(u => u.id === loggedInUserId);
+                    if (user) document.getElementById("user-name").textContent = user.fullName;
+                })
+                .catch(error => console.error("Error fetching user details:", error));
+        }
+    }
+
+    document.getElementById("cart-icon").addEventListener("click", () => {
+        window.location.href = "cart.html";
+    });
+</script>
+
+</body>
+</html>

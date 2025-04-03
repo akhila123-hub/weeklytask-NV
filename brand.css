@@ -1,0 +1,156 @@
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #e3f2fd;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+
+h1 {
+    color: #0d47a1;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+
+.brand-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.brand-container button {
+    background: linear-gradient(135deg, #0d47a1, #1976d2);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.brand-container button:hover {
+    background: #1565c0;
+    transform: scale(1.1);
+}
+
+
+.watch-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+
+.watch-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    max-width: 280px; 
+    margin: auto; 
+}
+
+.watch-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* Watch Image - FIXED SIZE */
+.watch-card img {
+    width: 100%; 
+    height: 200px; 
+    max-width: 250px; 
+    object-fit: cover; 
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.watch-card img:hover {
+    transform: scale(1.05); 
+}
+
+
+.watch-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+
+.watch-card h3 {
+    margin: 10px 0;
+    color: #0d47a1;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+
+.watch-card p {
+    font-size: 16px;
+    color: #1565c0;
+    font-weight: 500;
+}
+
+
+.watch-card button {
+    background: #0d47a1;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    margin-top: auto; 
+}
+
+.watch-card button:hover {
+    background: #1565c0;
+    transform: scale(1.05);
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+@media (max-width: 600px) {
+    .watch-container {
+        grid-template-columns: 1fr;
+    }
+
+    .watch-card {
+        max-width: 100%; 
+    }
+}

@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="cart.css">
+</head>
+<body>
+
+<header class="navbar">
+    <h1 class="glow">JUST IN TIME - CART</h1>
+    <button onclick="window.location.href='dashboard.html'">Back to Store</button>
+</header>
+
+<section class="cart-container">
+    <h2>Your Shopping Cart</h2>
+    <ul id="cart-items"></ul>
+    <p id="total-price"></p>
+</section>
+
+<script>
+    const cartUrl = "http://localhost:3000/cart";
+
+    document.addEventListener("DOMContentLoaded", () => {
+        loadUserCart();
+    });
+
+    async function loadUserCart() {
+        const loggedInUserId = localStorage.getItem("loggedInUserId");
+        if (!loggedInUserId) return;
+        try {
+            const res = await fetch(`${cartUrl}?userId=${loggedInUserId}`);
+            if (!res.ok) throw new Error("Failed to fetch cart items");
+            const cartItems = await res.json();
+            displayCart(cartItems);
+        } catch (error) {
+            console.error("Cart Load Error:", error);
+        }
+    }
+
+    function displayCart(cartItems) {
+        const cartList = document.getElementById("cart-items");
+        const totalPriceElem = document.getElementById("total-price");
+        if (!cartList) return;
+        cartList.innerHTML = "";
+        let totalPrice = 0;
+
+        if (cartItems.length === 0) {
+            cartList.innerHTML = "<p>Your cart is empty.</p>";
+            totalPriceElem.textContent = "";
+            return;
+        }
+
+        cartItems.forEach(item => {
+            const li = document.createElement("li");
+            li.innerHTML = `
+                <div class="cart-item">
+                    <img src="${item.image || 'placeholder.jpg'}" width="80" onerror="this.src='placeholder.jpg'">
+                    <p>${item.name} - ₹${item.price} (x${item.quantity})</p>
+                    <button onclick="removeFromCart('${item.id}')">Remove</button>
+                </div>
+            `;
+            cartList.appendChild(li);
+            totalPrice += item.price * item.quantity;
+        });
+
+        totalPriceElem.textContent = `Total Price: ₹${totalPrice}`;
+    }
+
+    async function removeFromCart(id) {
+        try {
+            const res = await fetch(`${cartUrl}/${id}`, { method: "DELETE" });
+            if (!res.ok) throw new Error("Failed to remove item");
+            loadUserCart();
+        } catch (error) {
+            console.error("Remove Error:", error);
+        }
+    }
+</script>
+
+</body>
+</html>

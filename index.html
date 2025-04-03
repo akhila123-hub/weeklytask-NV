@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Signup</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+    <div class="wrapper login">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="role-selection">
+                <label><input type="radio" name="role" value="user" checked> User</label>
+                <label><input type="radio" name="role" value="admin"> Admin</label>
+            </div>
+            <div class="input-field">
+                <input type="text" id="loginUser" required>
+                <label>Username or Email</label>
+            </div>
+            <div class="input-field">
+                <input type="password" id="loginPassword" required>
+                <label>Password</label>
+            </div>
+            <button type="submit">Login</button>
+            <p id="loginMessage" class="error-message"></p>
+            <div class="register">
+                <p>Don't have an account? <a href="#" id="toggleSignup">Sign up</a></p>
+            </div>
+        </form>
+    </div>
+
+   
+    <div class="wrapper admin-panel" style="display: none;">
+        <h2>Welcome, Admin</h2>
+        <button id="logout">Logout</button>
+    </div>
+
+    <!-- Signup Form -->
+    <div class="wrapper signup" style="display: none;">
+        <h2>Sign Up</h2>
+        <form id="signupForm">
+            <div class="input-field">
+                <input type="text" id="fullName" required>
+                <label>Full Name</label>
+            </div>
+            <div class="input-field">
+                <input type="text" id="username" required>
+                <label>Username</label>
+            </div>
+            <div class="input-field">
+                <input type="email" id="email" required>
+                <label>Email</label>
+            </div>
+            <div class="input-field">
+                <input type="text" id="phone" required>
+                <label>Phone Number</label>
+            </div>
+            <div class="input-field">
+                <input type="password" id="password" required>
+                <label>Password</label>
+            </div>
+            <div class="input-field">
+                <input type="password" id="confirmPassword" required>
+                <label>Confirm Password</label>
+            </div>
+            <button type="submit">Sign Up</button>
+            <p id="signupMessage" class="error-message"></p>
+            <div class="register">
+                <p>Already have an account? <a href="#" id="toggleLogin">Login</a></p>
+            </div>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

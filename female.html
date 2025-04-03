@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Female Watches</title>
+    <link rel="stylesheet" href="mfcategory.css">
+</head>
+<body>
+    <h2>Female Watches</h2>
+
+    <div id="productList" class="product-container"></div>
+
+    <a href="cart.html"><button>Go to Cart 🛒</button></a>
+
+    <script>
+        const apiUrl = "http://localhost:3000/products";
+        const cartUrl = "http://localhost:3000/cart";
+        const container = document.getElementById("productList");
+
+        
+        const fetchFemaleProducts = () => {
+            fetch(apiUrl)
+                .then(res => res.json())
+                .then(products => {
+                    container.innerHTML = "";
+
+                    
+                    const femaleProducts = products.filter(product => product.category === "female");
+
+                    if (femaleProducts.length === 0) {
+                        container.innerHTML = "<p>No female watches available.</p>";
+                        return;
+                    }
+
+                    container.innerHTML = femaleProducts.map(product => `
+                        <div class="product-card">
+                            <img src="${product.image}" alt="${product.name}" width="100">
+                            <h3>${product.name}</h3>
+                            <p>₹${product.price}</p>
+                            <button onclick="addToCart('${product.id}', '${product.name}', ${product.price}, '${product.image}')">Add to Cart</button>
+                        </div>
+                    `).join("");
+                })
+                .catch(error => console.error("Error fetching female watches:", error));
+        };
+
+        
+        const addToCart = (id, name, price, image) => {
+            fetch(cartUrl)
+                .then(res => res.json())
+                .then(cart => {
+                    const existingItem = cart.find(item => item.id === id);
+
+                    if (existingItem) {
+                        return fetch(`${cartUrl}/${id}`, {
+                            method: "PATCH",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ quantity: (existingItem.quantity || 1) + 1 })
+                        });
+                    } else {
+                        const product = { id, name, price, image, quantity: 1 };
+
+                        return fetch(cartUrl, {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(product)
+                        });
+                    }
+                })
+                .then(res => {
+                    if (res.ok) {
+                        alert(`${name} added to cart!`);
+                    }
+                })
+                .catch(error => console.error("Error adding to cart:", error));
+        };
+
+        
+        fetchFemaleProducts();
+    </script>
+</body>
+</html>
