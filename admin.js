@@ -1,6 +1,16 @@
 const apiUrl = "http://localhost:3000/products";
 
+document.addEventListener("DOMContentLoaded", () => {
+    const loggedInUserId = localStorage.getItem("loggedInUserId");
+    const userRole = localStorage.getItem("userRole");
+    const currentPage = window.location.pathname.split("/").pop(); // Get the current filename
 
+    if (!loggedInUserId) {
+        window.location.href = "index.html"; // Redirect to login if not logged in
+    } else if (userRole !== "admin") {
+        window.location.href = "dashboard.html"; // Redirect normal users to dashboard
+    }
+});
 const fetchProducts = async () => {
     try {
         const res = await fetch(apiUrl);  
@@ -8,7 +18,7 @@ const fetchProducts = async () => {
         const container = document.getElementById("productList");
         container.innerHTML = ""; 
 
-        products.forEach(product => {
+        product.forEach(product => {
             const card = document.createElement("div");
             card.classList.add("product-card");
             card.dataset.id = product.id;
@@ -26,7 +36,7 @@ const fetchProducts = async () => {
             container.appendChild(card);
         });
     } catch (error) {
-        console.error("Error fetching products:", error);
+        console.error("Error fetching products:", error.message);
     }
 };
 
@@ -148,5 +158,6 @@ document.getElementById("logout-btn").addEventListener("click", () => {
     window.location.href = "index.html"; 
 });
 
-
 fetchProducts();
+
+

@@ -1,6 +1,6 @@
 
 const apiUrl = "http://localhost:3000/products"; 
-const cartUrl = "http://localhost:3000/cart"; 
+const cartUrl = "http://localhost:3000/users"; 
 
 const brandContainer = document.getElementById("brandContainer");
 const watchContainer = document.getElementById("watchList");
@@ -59,36 +59,55 @@ const filterByBrand = (brand) => {
         .catch(error => console.error("Error filtering watches:", error));
 };
 
+const getLoggedInUserId = () => localStorage.getItem("loggedInUserId");
 
-const addToCart = (id, name, price, image) => {
-    fetch(cartUrl)
-        .then(res => res.json())
-        .then(cart => {
-            const existingItem = cart.find(item => item.id === id);
+const addToCart = async (id, name, price, image) => {
+    const userId = getLoggedInUserId();
+    if (!userId) {
+        alert("Please log in to add items to your cart.");
+        return;
+    }
 
-            if (existingItem) {
-                return fetch(`${cartUrl}/${id}`, {
-                    method: "PATCH",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ quantity: (existingItem.quantity || 1) + 1 })
-                });
-            } else {
-                const product = { id, name, price, image, quantity: 1 };
+    try {
+        // Fetch the user's data
+        const res = await fetch(`${cartUrl}/${userId}`);
+        if (!res.ok) throw new Error("User not found");
 
-                return fetch(cartUrl, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(product)
-                });
-            }
-        })
-        .then(res => {
-            if (res.ok) {
-                alert(`${name} added to cart!`);
-            }
-        })
-        .catch(error => console.error("Error adding to cart:", error));
+        const userData = await res.json();
+        let cart = userData.cart || []; // Get existing cart or empty array
+
+        // Check if item already exists in cart
+        const existingItem = cart.find(item => item.id === id);
+        if (existingItem) {
+            existingItem.quantity += 1; // Increase quantity
+        } else {
+            cart.push({ id, name, price, image, quantity: 1 }); // Add new item
+        }
+
+        // Update user's cart in the database
+        await fetch(`${cartUrl}/${userId}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ cart })
+        });
+
+        alert(`${name} added to cart!`);
+    } catch (error) {
+        console.error("Error adding to cart:", error);
+    }
 };
+document.addEventListener("DOMContentLoaded", () => {
+    const loggedInUserId = localStorage.getItem("loggedInUserId");
+    const currentPage = window.location.pathname.split("/").pop(); // Get the current filename
+
+    if (!loggedInUserId && currentPage !== "index.html") {
+        // If not logged in & not on the login page, redirect to login
+        window.location.href = "index.html";
+    } else if (loggedInUserId && currentPage === "index.html") {
+        // If logged in & trying to access login, go to dashboard
+        window.location.href = "dashboard.html";
+    }
+});
 
 
 fetchWatches();

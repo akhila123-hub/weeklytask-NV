@@ -12,8 +12,15 @@
     <h1 class="glow">JUST IN TIME</h1>
 
     <div class="icons">
-        <i class="user-icon">👩🏻‍💻</i>
+        <i class="user-icon" id="userIcon">👩🏻‍💻</i>
+        <div class="dropdown" id="userDropdown">
+            <p id="userName">User Name</p>
+            <p id="userEmail">user@example.com</p>
+            <button id="logoutBtn">Logout</button>
+        </div>
         <i class="cart-icon" id="cart-icon">🛒</i>
+
+        <button onclick="window.location.href='order-history.html'" class="ord">📦order</button>
     </div>
 
     <div id="cart-modal" class="cart-modal" style="display: none;">
@@ -22,10 +29,7 @@
         <button onclick="closeCart()">Close</button>
     </div>
 
-    <div id="user-options" style="display: none;">
-        <p><strong id="user-name"></strong></p>
-        <button id="logout-btn">Logout</button>
-    </div>
+   
 </header>
 
 <header>
@@ -183,6 +187,67 @@
         }
     });
 });
+
+
+
+//----
+document.addEventListener("DOMContentLoaded", () => {
+    const userIcon = document.getElementById("userIcon");
+    const userDropdown = document.getElementById("userDropdown");
+    const userName = document.getElementById("userName");
+    const userEmail = document.getElementById("userEmail");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    // Fetch user details from localStorage
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
+    if (loggedInUser) {
+        userName.textContent = loggedInUser.fullName;
+        userEmail.textContent = loggedInUser.email;
+    }
+
+    // Show/Hide Dropdown on User Icon Click
+    userIcon.addEventListener("click", () => {
+        userDropdown.style.display = userDropdown.style.display === "block" ? "none" : "block";
+    });
+
+    // Logout Functionality
+    logoutBtn.addEventListener("click", () => {
+        if (confirm("Are you sure you want to logout?")) {
+            localStorage.removeItem("loggedInUser");
+            localStorage.removeItem("userRole"); 
+            localStorage.removeItem("loggedInUserId");
+            window.location.href = "index.html"; // Redirect to Login Page
+        }
+    });
+
+    // Hide dropdown when clicking outside
+    document.addEventListener("click", (event) => {
+        if (!userIcon.contains(event.target) && !userDropdown.contains(event.target)) {
+            userDropdown.style.display = "none";
+        }
+    });
+});
+document.addEventListener("DOMContentLoaded", () => {
+    const loggedInUserId = localStorage.getItem("loggedInUserId");
+
+    if (!loggedInUserId) {
+        // Redirect to login page if no user is logged in
+        window.location.href = "index.html";
+    }
+
+});
+document.addEventListener("DOMContentLoaded", () => {
+    const loggedInUserId = localStorage.getItem("loggedInUserId");
+    const userRole = localStorage.getItem("userRole");
+
+    if (!loggedInUserId) {
+        window.location.href = "index.html"; // Redirect if not logged in
+    } else if (userRole === "admin") {
+        window.location.href = "admin.html"; // Redirect admin users to admin page
+    }
+});
+
 
 </script>
 

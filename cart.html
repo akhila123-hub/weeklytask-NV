@@ -19,66 +19,189 @@
     <ul id="cart-items"></ul>
     <p id="total-price"></p>
 </section>
+<button id="placeOrderBtn">Place Order</button>
 
 <script>
-    const cartUrl = "http://localhost:3000/cart";
+    
 
-    document.addEventListener("DOMContentLoaded", () => {
-        loadUserCart();
+const API_URL = "http://localhost:3000/users";
+
+function getLoggedInUserId() {
+    return localStorage.getItem("loggedInUserId");
+}
+
+async function fetchUserCart() {
+    const userId = String(getLoggedInUserId());
+    if (!userId) return [];
+
+    try {
+        const res = await fetch(`${API_URL}/${userId}`);
+         if (!res.ok) throw new Error("User not found");
+        const userData = await res.json();
+        console.log("User Data:", userData); // Debugging
+        return userData.cart || [];
+    } catch (error) {
+        console.error("Error fetching cart:", error);
+        return [];
+    }
+}
+
+async function displayCart() {
+    const cartItems = await fetchUserCart();
+    console.log("Cart Items:", cartItems); // Debugging
+  const cartList = document.getElementById("cart-items");
+    const totalPriceElement = document.getElementById("total-price");
+
+    cartList.innerHTML = ""; 
+   
+    if (!cartItems.length===0) {
+        cartList.innerHTML = "<p>Your cart is empty.</p>";
+        totalPriceElement.textContent = "";
+        return;
+    }
+  // Clear previous data
+    let totalPrice = 0;
+
+    cartItems.forEach((item) => {
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `
+            <img src="${item.image}" width="50">
+            <span>${item.name} - ₹${item.price} x ${item.quantity}</span>
+            <button onclick="removeFromCart('${item.id}')">Remove</button>
+        `;
+        cartList.appendChild(listItem);
+        totalPrice += item.price * item.quantity;
     });
 
-    async function loadUserCart() {
-        const loggedInUserId = localStorage.getItem("loggedInUserId");
-        if (!loggedInUserId) return;
-        try {
-            const res = await fetch(`${cartUrl}?userId=${loggedInUserId}`);
-            if (!res.ok) throw new Error("Failed to fetch cart items");
-            const cartItems = await res.json();
-            displayCart(cartItems);
-        } catch (error) {
-            console.error("Cart Load Error:", error);
+    totalPriceElement.textContent = `Total: ₹${totalPrice}`;
+}
+
+
+
+const addToCart = async (id, name, price, image) => {
+    const userId = getLoggedInUserId();
+    if (!userId) {
+        alert("Please log in to add items to your cart.");
+        return;
+    }
+    try {
+        const res = await fetch(`${cartUrl}/${userId}`);
+        if (!res.ok) throw new Error("User not found");
+  const userData = await res.json();
+        let cart = userData.cart || []; 
+    const existingItem = cart.find(item => item.id === id);  // ✅ Use `id`, not `productId`
+        if (existingItem) {
+            existingItem.quantity += 1; // Increase quantity
+        } else {
+            cart.push({ id, name, price, image, quantity: 1 });  // ✅ Ensure all items use `id`
         }
+
+
+    await fetch(`${cartUrl}/${userId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ cart }),
+    });
+console.log("Updated Cart:", cart);  // Debugging
+        alert(`${name} added to cart!`);
+    } catch (error) {
+        console.error("Error adding to cart:", error);
+    }
+    displayCart();
+};
+
+async function removeFromCart(id) {
+    const userId = getLoggedInUserId();
+    if (!userId) return;
+
+    let cart = await fetchUserCart();
+    cart = cart.filter((item) => item.id !== id);
+
+    await fetch(`${API_URL}/${userId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ cart }),
+    });
+
+    displayCart();
+}
+
+document.getElementById("logout")?.addEventListener("click", function () {
+    localStorage.removeItem("loggedInUser");
+    localStorage.removeItem("loggedInUserId");
+    window.location.href = "index.html"; // Redirect to login page
+});
+
+if (getLoggedInUserId()) {
+    displayCart();
+} else {
+    window.location.href = "index.html"; // Redirect if not logged in
+}
+
+//order
+async function placeOrder() {
+    const userId = getLoggedInUserId();
+    if (!userId) {
+        alert("Please log in to place an order.");
+        return;
     }
 
-    function displayCart(cartItems) {
-        const cartList = document.getElementById("cart-items");
-        const totalPriceElem = document.getElementById("total-price");
-        if (!cartList) return;
-        cartList.innerHTML = "";
-        let totalPrice = 0;
+    let cart = await fetchUserCart();
 
-        if (cartItems.length === 0) {
-            cartList.innerHTML = "<p>Your cart is empty.</p>";
-            totalPriceElem.textContent = "";
-            return;
-        }
+    if (cart.length === 0) {
+        alert("Your cart is empty. Add items before placing an order.");
+        return;
+    }
 
-        cartItems.forEach(item => {
-            const li = document.createElement("li");
-            li.innerHTML = `
-                <div class="cart-item">
-                    <img src="${item.image || 'placeholder.jpg'}" width="80" onerror="this.src='placeholder.jpg'">
-                    <p>${item.name} - ₹${item.price} (x${item.quantity})</p>
-                    <button onclick="removeFromCart('${item.id}')">Remove</button>
-                </div>
-            `;
-            cartList.appendChild(li);
-            totalPrice += item.price * item.quantity;
+    const orderData = {
+        userId: userId,
+        items: cart,
+        totalAmount: cart.reduce((total, item) => total + item.price * item.quantity, 0),
+        status: "Pending",
+        date: new Date().toISOString()
+    };
+
+    try {
+        // Save the order in the database
+        await fetch(`http://localhost:3000/orders`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(orderData)
         });
 
-        totalPriceElem.textContent = `Total Price: ₹${totalPrice}`;
-    }
+        // Clear the user's cart after placing the order
+        await fetch(`${API_URL}/${userId}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ cart: [] })
+        });
 
-    async function removeFromCart(id) {
-        try {
-            const res = await fetch(`${cartUrl}/${id}`, { method: "DELETE" });
-            if (!res.ok) throw new Error("Failed to remove item");
-            loadUserCart();
-        } catch (error) {
-            console.error("Remove Error:", error);
-        }
+        alert("Order placed successfully!");
+        window.location.href = "order-history.html"; // Redirect to order history page
+    } catch (error) {
+        console.error("Error placing order:", error);
     }
+}
+
+// Attach event listener to Place Order button
+document.getElementById("placeOrderBtn").addEventListener("click", placeOrder);
+
+document.addEventListener("DOMContentLoaded", () => {
+    const loggedInUserId = localStorage.getItem("loggedInUserId");
+    const currentPage = window.location.pathname.split("/").pop(); // Get the current filename
+
+    if (!loggedInUserId && currentPage !== "index.html") {
+        // If not logged in & not on the login page, redirect to login
+        window.location.href = "index.html";
+    } else if (loggedInUserId && currentPage === "index.html") {
+        // If logged in & trying to access login, go to dashboard
+        window.location.href = "dashboard.html";
+    }
+});
+
 </script>
 
+    
 </body>
+    
 </html>

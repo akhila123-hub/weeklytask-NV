@@ -15,8 +15,11 @@
     <script>
         const apiUrl = "http://localhost:3000/products";
         console.log(apiUrl);
-        const cartUrl = "http://localhost:3000/cart";
+        const cartUrl = "http://localhost:3000/users";
 
+function getLoggedInUserId() {
+    return localStorage.getItem("loggedInUserId"); // Retrieve logged-in user ID
+}
         
         fetch(apiUrl)
             .then(res => res.json())
@@ -35,41 +38,64 @@
                     </div>
                 `).join("") : "<p>No Men's Watches available.</p>";
             })
-            .catch(error => console.error("Error fetching products:", error));
+            .catch(error => console.error("Error fetching products:", error.message));
+
+      async function addToCart(id, name, price, image) { 
+    const userId = getLoggedInUserId();
+    if (!userId) {
+        alert("Please log in to add items to your cart.");
+        return;
+    }
+
+    try {
+        // Step 1: Get user details including their cart
+        const userResponse = await fetch(`${cartUrl}/${userId}`);
+        if (!userResponse.ok) {
+            throw new Error("User not found");
+        }
+        const user = await userResponse.json();
+        let cart = Array.isArray(user.cart) ? user.cart : []; // Ensure cart is an array
+
+        // Step 2: Check if the product already exists in the cart
+        const existingItem = cart.find(item => item.productId === id);
+        
+        if (existingItem) {
+            existingItem.quantity += 1; // Increase quantity if exists
+        } else {
+            cart.push({ productId: id, name, price, image, quantity: 1 }); // Add new product
+        }
+
+        // Step 3: Update the user’s cart in db.json
+        const updateResponse = await fetch(`${cartUrl}/${userId}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ cart }) // Send updated cart array
+        });
+
+        if (updateResponse.ok) {
+            alert("Product added to cart!");
+        } else {
+            throw new Error("Failed to update cart");
+        }
+    } catch (error) {
+        console.error("Error adding to cart:", error);
+    }
+}
 
        
-        function addToCart(id, name, price, image) { 
-            fetch(cartUrl)
-                .then(res => res.json())
-                .then(cart => {
-                    const existingItem = cart.find(item => item.productId === id);
-                    console.log(existingItem);
+    document.addEventListener("DOMContentLoaded", () => {
+    const loggedInUserId = localStorage.getItem("loggedInUserId");
+    const currentPage = window.location.pathname.split("/").pop(); // Get the current filename
 
-                    if (existingItem) {
-                        
-                        return fetch(`${cartUrl}/${existingItem.id}`, {
-                            method: "PATCH",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ quantity: existingItem.quantity + 1 })
-                        });
-                    } else {
-                        
-                        const product = { productId: id, name, price, image, quantity: 1 };
-
-                        return fetch(cartUrl, {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify(product)
-                        });
-                    }
-                })
-                .then(res => {
-                    if (res.ok) {
-                        alert("Product added to cart!");
-                    }
-                })
-                .catch(error => console.error("Error adding to cart:", error));
-        }
+    if (!loggedInUserId && currentPage !== "index.html") {
+        // If not logged in & not on the login page, redirect to login
+        window.location.href = "index.html";
+    } else if (loggedInUserId && currentPage === "index.html") {
+        // If logged in & trying to access login, go to dashboard
+        window.location.href = "dashboard.html";
+    }
+});
+            
     </script>
 </body>
 </html>

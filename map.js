@@ -63,3 +63,15 @@ stores.forEach(store => {
     });
     
 });
+document.addEventListener("DOMContentLoaded", () => {
+    const loggedInUserId = localStorage.getItem("loggedInUserId");
+    const currentPage = window.location.pathname.split("/").pop(); // Get the current filename
+
+    if (!loggedInUserId && currentPage !== "index.html") {
+        // If not logged in & not on the login page, redirect to login
+        window.location.href = "index.html";
+    } else if (loggedInUserId && currentPage === "index.html") {
+        // If logged in & trying to access login, go to dashboard
+        window.location.href = "dashboard.html";
+    }
+});

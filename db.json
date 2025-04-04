@@ -16,7 +16,8 @@
       "email": "akhila292002@gmail.com",
       "phone": "7339461208",
       "password": "Akhila@123",
-      "role": "user"
+      "role": "user",
+      "cart": []
     },
     {
       "id": "baf2",
@@ -25,16 +26,155 @@
       "email": "aki29@gmail.com",
       "phone": "6379002645",
       "password": "Ilam@123",
-      "role": "user"
-    }
-  ],
-  "cart": [
+      "role": "user",
+      "cart": []
+    },
     {
-      "id": "280b",
-      "productId": "2fc8",
-      "name": "Standard MW-620H-2AV",
-      "price": 2995,
-      "image": "https://www.casio.com/content/dam/casio/product-info/locales/in/en/timepiece/product/watch/M/MW/mw6/mw-620h-2av/assets/MW-620H-2AV_SQ.jpg.transform/main-visual-pc/image.jpg",
+      "id": "363d",
+      "fullName": "riya",
+      "username": "riya@123",
+      "email": "akhilaprameela@gmail.com",
+      "phone": "6379002645",
+      "password": "Riya@123",
+      "role": "user"
+    },
+    {
+      "id": "52f2",
+      "fullName": "riya1",
+      "username": "Riya@1234",
+      "email": "akhilaprameela22@gmail.com",
+      "phone": "7339461208",
+      "password": "Riya@123",
+      "role": "user"
+    },
+    {
+      "id": "6",
+      "fullName": "Aki",
+      "username": "aki@123",
+      "email": "akhilaprameela02@gmail.com",
+      "phone": "07339461207",
+      "password": "Aki@12345",
+      "role": "user",
+      "cart": []
+    },
+    {
+      "id": "7",
+      "fullName": "Akii",
+      "username": "aki@1234",
+      "email": "akhilaprameela022@gmail.com",
+      "phone": "9876556789",
+      "password": "Akhila@1232",
+      "role": "user",
+      "cart": [
+        {
+          "id": "2fc8",
+          "name": "Standard MW-620H-2AV",
+          "price": 2995,
+          "image": "https://www.casio.com/content/dam/casio/product-info/locales/in/en/timepiece/product/watch/M/MW/mw6/mw-620h-2av/assets/MW-620H-2AV_SQ.jpg.transform/main-visual-pc/image.jpg",
+          "quantity": 1
+        },
+        {
+          "id": "3fe8",
+          "name": "Titan Octane Black Dial Chronograph Watch",
+          "price": 11650,
+          "image": "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwc07c110a/images/Titan/Catalog/90086KM05_1.jpg?sw=600&sh=600",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "8",
+      "fullName": "Akiii",
+      "username": "aki@12345",
+      "email": "akhilaprameela92@gmail.com",
+      "phone": "7889674568",
+      "password": "Akhi@123",
+      "role": "user",
+      "cart": []
+    },
+    {
+      "id": "9",
+      "fullName": "Akhi",
+      "username": "aki@12346",
+      "email": "akhilaprameela12@gmail.com",
+      "phone": "7889674556",
+      "password": "Akhi@234",
+      "role": "user",
+      "cart": [
+        {
+          "productId": "2fc8",
+          "name": "Standard MW-620H-2AV",
+          "price": 2995,
+          "image": "https://www.casio.com/content/dam/casio/product-info/locales/in/en/timepiece/product/watch/M/MW/mw6/mw-620h-2av/assets/MW-620H-2AV_SQ.jpg.transform/main-visual-pc/image.jpg",
+          "quantity": 1
+        },
+        {
+          "productId": "be25",
+          "name": "Top Brand Luxury Leather ",
+          "price": 2181,
+          "image": "https://cdn7.bigcommerce.com/s-pkla4xn3/images/stencil/1280x1280/products/4436/34744/LIGE-Mens-Watches-Top-Brand-Luxury-Leather-Casual-Quartz-Watch-Men-Military-Sport-Waterproof-Clock-Gold__79354.1522933698.jpg?c=2?imbypass=on",
+          "quantity": 1
+        },
+        {
+          "id": "b67a",
+          "name": "Titan Octane Black Dial Chronograph Watch",
+          "price": 11650,
+          "image": "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwc07c110a/images/Titan/Catalog/90086KM05_1.jpg?sw=600&sh=600",
+          "quantity": 1
+        },
+        {
+          "id": "2fc8",
+          "name": "Standard MW-620H-2AV",
+          "price": 2995,
+          "image": "https://www.casio.com/content/dam/casio/product-info/locales/in/en/timepiece/product/watch/M/MW/mw6/mw-620h-2av/assets/MW-620H-2AV_SQ.jpg.transform/main-visual-pc/image.jpg",
+          "quantity": 4
+        },
+        {
+          "id": "be25",
+          "name": "Top Brand Luxury Leather ",
+          "price": 2181,
+          "image": "https://cdn7.bigcommerce.com/s-pkla4xn3/images/stencil/1280x1280/products/4436/34744/LIGE-Mens-Watches-Top-Brand-Luxury-Leather-Casual-Quartz-Watch-Men-Military-Sport-Waterproof-Clock-Gold__79354.1522933698.jpg?c=2?imbypass=on",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "fullName": "dhivya",
+      "username": "Dhiv@123",
+      "email": "dhiv292003@gmail.com",
+      "phone": "07339461299",
+      "password": "Dhivya@123",
+      "role": "user",
+      "cart": [
+        {
+          "productId": "2fc8",
+          "name": "Standard MW-620H-2AV",
+          "price": 2995,
+          "image": "https://www.casio.com/content/dam/casio/product-info/locales/in/en/timepiece/product/watch/M/MW/mw6/mw-620h-2av/assets/MW-620H-2AV_SQ.jpg.transform/main-visual-pc/image.jpg",
+          "quantity": 1
+        },
+        {
+          "id": "3fe8",
+          "name": "Titan Octane Black Dial Chronograph Watch",
+          "price": 11650,
+          "image": "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwc07c110a/images/Titan/Catalog/90086KM05_1.jpg?sw=600&sh=600",
+          "quantity": 1
+        },
+        {
+          "id": "b67a",
+          "name": "Titan Octane Black Dial Chronograph Watch",
+          "price": 11650,
+          "image": "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwc07c110a/images/Titan/Catalog/90086KM05_1.jpg?sw=600&sh=600",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "b67a",
+      "name": "Titan Octane Black Dial Chronograph Watch",
+      "price": 11650,
+      "image": "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwc07c110a/images/Titan/Catalog/90086KM05_1.jpg?sw=600&sh=600",
       "quantity": 1
     },
     {
@@ -42,7 +182,56 @@
       "name": "Standard MW-620H-2AV",
       "price": 2995,
       "image": "https://www.casio.com/content/dam/casio/product-info/locales/in/en/timepiece/product/watch/M/MW/mw6/mw-620h-2av/assets/MW-620H-2AV_SQ.jpg.transform/main-visual-pc/image.jpg",
+      "quantity": 1
+    },
+    {
+      "id": "13",
+      "fullName": "new",
+      "username": "New@123",
+      "email": "new292003@gmail.com",
+      "phone": "07339461297",
+      "password": "New@123",
+      "role": "user",
+      "cart": [
+        {
+          "productId": "2fc8",
+          "name": "Standard MW-620H-2AV",
+          "price": 2995,
+          "image": "https://www.casio.com/content/dam/casio/product-info/locales/in/en/timepiece/product/watch/M/MW/mw6/mw-620h-2av/assets/MW-620H-2AV_SQ.jpg.transform/main-visual-pc/image.jpg",
+          "quantity": 1
+        }
+      ]
+    }
+  ],
+  "cart": [
+    {
+      "id": "4ca6",
+      "productId": "2fc8",
+      "name": "Standard MW-620H-2AV",
+      "price": 2995,
+      "image": "https://www.casio.com/content/dam/casio/product-info/locales/in/en/timepiece/product/watch/M/MW/mw6/mw-620h-2av/assets/MW-620H-2AV_SQ.jpg.transform/main-visual-pc/image.jpg",
+      "quantity": 1
+    },
+    {
+      "id": "3fe8",
+      "name": "Titan Octane Black Dial Chronograph Watch",
+      "price": 11650,
+      "image": "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwc07c110a/images/Titan/Catalog/90086KM05_1.jpg?sw=600&sh=600",
+      "quantity": 1
+    },
+    {
+      "id": "b67a",
+      "name": "Titan Octane Black Dial Chronograph Watch",
+      "price": 11650,
+      "image": "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwc07c110a/images/Titan/Catalog/90086KM05_1.jpg?sw=600&sh=600",
       "quantity": 2
+    },
+    {
+      "id": "2fc8",
+      "name": "Standard MW-620H-2AV",
+      "price": 2995,
+      "image": "https://www.casio.com/content/dam/casio/product-info/locales/in/en/timepiece/product/watch/M/MW/mw6/mw-620h-2av/assets/MW-620H-2AV_SQ.jpg.transform/main-visual-pc/image.jpg",
+      "quantity": 1
     }
   ],
   "products": [
@@ -69,14 +258,6 @@
       "image": "https://www.casio.com/content/dam/casio/product-info/locales/in/en/timepiece/product/watch/M/MW/mw6/mw-620h-2av/assets/MW-620H-2AV_SQ.jpg.transform/main-visual-pc/image.jpg",
       "category": "mens",
       "brand": "CASIO"
-    },
-    {
-      "id": "2612",
-      "brand": "TITAN",
-      "name": "Titan Octane Black Dial Chronograph Watch",
-      "price": "11650",
-      "image": "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwc07c110a/images/Titan/Catalog/90086KM05_1.jpg?sw=600&sh=600",
-      "category": "female"
     },
     {
       "id": "9d2b",
@@ -109,6 +290,95 @@
       "price": "11650",
       "image": "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwc07c110a/images/Titan/Catalog/90086KM05_1.jpg?sw=600&sh=600",
       "category": "female"
+    },
+    {
+      "id": "ece6",
+      "brand": "TITAN-- new",
+      "name": "Titan Octane Black Dial Chronograph Watch",
+      "price": "11650",
+      "image": "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwc07c110a/images/Titan/Catalog/90086KM05_1.jpg?sw=600&sh=600",
+      "category": "mens"
+    },
+    {
+      "id": "7f17",
+      "brand": "quartz",
+      "name": "Titan Octane Black Dial Chronograph Watch",
+      "price": "11650",
+      "image": "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwc07c110a/images/Titan/Catalog/90086KM05_1.jpg?sw=600&sh=600",
+      "category": "mens"
+    }
+  ],
+  "orders": [
+    {
+      "id": "1a70",
+      "userId": "7",
+      "items": [
+        {
+          "productId": "123e",
+          "name": "Gc Black Monarch Chronograph Sports Watch",
+          "price": 9999,
+          "image": "https://watchesprime.com/wp-content/uploads/2018/09/13-1624.jpg",
+          "quantity": 1
+        }
+      ],
+      "totalAmount": 9999,
+      "status": "Pending",
+      "date": "2025-04-03T17:43:39.011Z"
+    },
+    {
+      "id": "2d5e",
+      "userId": "7",
+      "items": [
+        {
+          "productId": "be25",
+          "name": "Top Brand Luxury Leather ",
+          "price": 2181,
+          "image": "https://cdn7.bigcommerce.com/s-pkla4xn3/images/stencil/1280x1280/products/4436/34744/LIGE-Mens-Watches-Top-Brand-Luxury-Leather-Casual-Quartz-Watch-Men-Military-Sport-Waterproof-Clock-Gold__79354.1522933698.jpg?c=2?imbypass=on",
+          "quantity": 1
+        }
+      ],
+      "totalAmount": 2181,
+      "status": "Pending",
+      "date": "2025-04-03T18:15:46.248Z"
+    },
+    {
+      "id": "31bc",
+      "userId": "13",
+      "items": [
+        {
+          "productId": "9d2b",
+          "name": "Titan Octane Black Dial Chronograph Watch",
+          "price": 11650,
+          "image": "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwc07c110a/images/Titan/Catalog/90086KM05_1.jpg?sw=600&sh=600",
+          "quantity": 1
+        }
+      ],
+      "totalAmount": 11650,
+      "status": "Pending",
+      "date": "2025-04-04T10:18:28.583Z"
+    },
+    {
+      "id": "5f74",
+      "userId": "baf2",
+      "items": [
+        {
+          "id": "3fe8",
+          "name": "Titan Octane Black Dial Chronograph Watch",
+          "price": 11650,
+          "image": "https://www.titan.co.in/dw/image/v2/BKDD_PRD/on/demandware.static/-/Sites-titan-master-catalog/default/dwc07c110a/images/Titan/Catalog/90086KM05_1.jpg?sw=600&sh=600",
+          "quantity": 1
+        },
+        {
+          "productId": "2fc8",
+          "name": "Standard MW-620H-2AV",
+          "price": 2995,
+          "image": "https://www.casio.com/content/dam/casio/product-info/locales/in/en/timepiece/product/watch/M/MW/mw6/mw-620h-2av/assets/MW-620H-2AV_SQ.jpg.transform/main-visual-pc/image.jpg",
+          "quantity": 2
+        }
+      ],
+      "totalAmount": 17640,
+      "status": "Pending",
+      "date": "2025-04-04T12:04:23.310Z"
     }
   ]
 }

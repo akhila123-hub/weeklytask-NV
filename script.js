@@ -9,15 +9,23 @@ document.addEventListener("DOMContentLoaded", function () {
     const API_URL = "http://localhost:3000/users"; 
 
     // Toggle between Login and Signup forms
-    toggleSignup.addEventListener("click", function () {
-        loginWrapper.style.display = "none";
-        signupWrapper.style.display = "block";
+    document.getElementById("toggleSignup").addEventListener("click", () => {
+        document.querySelector(".login").style.display = "none";
+        document.querySelector(".signup").style.display = "block";
     });
-
-    toggleLogin.addEventListener("click", function () {
-        signupWrapper.style.display = "none";
-        loginWrapper.style.display = "block";
+    
+    document.getElementById("toggleLogin").addEventListener("click", () => {
+        document.querySelector(".signup").style.display = "none";
+        document.querySelector(".login").style.display = "block";
     });
+    function saveUserToLocal(user) {
+        localStorage.setItem("loggedInUser", JSON.stringify(user));
+        localStorage.setItem("loggedInUserId", user.id);
+    }
+    
+    function getLoggedInUserId() {
+        return localStorage.getItem("loggedInUserId");
+    }
 
     // Email validation
     function isValidEmail(email) {
@@ -30,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Signup functionality
-    signupForm.addEventListener("submit", async function (e) {
+    document.getElementById("signupForm").addEventListener("submit", async function (e) {
         e.preventDefault();
 
         const fullName = document.getElementById("fullName").value.trim();
@@ -72,74 +80,82 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert("Error: Email or Username already exists!");
                 return;
             }
+            const newUserId = String(users.length + 1);
 
+            // Create user object
+            const newUser = {
+                id: newUserId,
+                fullName,
+                username,
+                email,
+                phone,
+                password,
+                role: "user",
+                cart: []
+            };
             // Save new user
-            let newUser = { fullName, username, email, phone, password, role: "user" };
-            await fetch(API_URL, {
+            const saveResponse = await fetch("http://localhost:3000/users", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(newUser),
+                body: JSON.stringify(newUser)
             });
-
-            alert("Success! Account created.");
-            signupForm.reset();
-            signupWrapper.style.display = "none";
-            loginWrapper.style.display = "block";
+    console.log(saveResponse)
+            if (!saveResponse.ok) {
+                throw new Error("Failed to save user");
+            }
+    
+            alert("Account created successfully! You can now log in.");
+            document.getElementById("signupForm").reset();
+            document.querySelector(".signup").style.display = "none";
+            document.querySelector(".login").style.display = "block";
         } catch (error) {
-            console.error("Error:", error);
-            alert("Server error. Please try again.");
+            console.error("Signup error:", error);
+            alert("Error signing up. Please try again.");
         }
     });
-
-    // Login functionality
-    loginForm.addEventListener("submit", async function (e) {
+    document.getElementById("loginForm").addEventListener("submit", async function (e) {
         e.preventDefault();
-
         const loginUser = document.getElementById("loginUser").value.trim();
         const loginPassword = document.getElementById("loginPassword").value;
-        const selectedRole = document.querySelector("input[name='role']:checked").value;
-
-        if (!loginUser || !loginPassword) {
-            alert("Error: All fields are required!");
-            return;
-        }
-
-        try {
-            let response = await fetch(API_URL);
-            let users = await response.json();
-
-            // Admin login
-            if (loginUser === "admin" && loginPassword === "admin" && selectedRole === "admin") {
-                localStorage.setItem("loggedInUser", JSON.stringify({ username: "admin", role: "admin" }));
-                alert("Admin Login Successful!");
-                window.location.href = "admin.html";
-                return;
-            }
-
-            // Check user credentials
-            let user = users.find(user => (user.email === loginUser || user.username === loginUser) && user.password === loginPassword);
-
-            if (!user) {
-                alert("Error: Invalid Username or Password!");
-                return;
-            }
-
-            // Role-based login
-            if (user.role === "user" && selectedRole === "user") {
-                localStorage.setItem("loggedInUser", JSON.stringify(user));
-                localStorage.setItem("loggedInUserId", user.id); // Store user ID
-                alert("User Login Successful!");
-
-                // Redirect to Dashboard
-                window.location.href = "dashboard.html";
+        const role = document.querySelector('input[name="role"]:checked').value;
+    
+        const res = await fetch(API_URL);
+        const users = await res.json();
+        const user = users.find(u => (u.email === loginUser || u.username === loginUser) && u.password === loginPassword);
+    
+        if (user) {
+            localStorage.setItem("loggedInUserId", user.id);
+        localStorage.setItem("userRole", user.role); 
+            saveUserToLocal(user);
+            if (user.role === "admin") {
+                window.location.href = "admin.html"; // Redirect to admin panel
             } else {
-                alert("Error: Only admins can log in with the Admin role.");
+                window.location.href = "dashboard.html"; // Redirect to user cart page
             }
-
-        } catch (error) {
-            console.error("Error:", error);
-            alert("Server error. Please try again.");
+        } else {
+            alert("Invalid credentials!");
         }
     });
+    
+    document.getElementById("logout").addEventListener("click", function () {
+        localStorage.removeItem("loggedInUser");
+        localStorage.removeItem("loggedInUserId");
+        window.location.href = "Index.html"; // Redirect to login
+    });
+    
+    });
+    document.addEventListener("DOMContentLoaded", () => {
+        const loggedInUserId = localStorage.getItem("loggedInUserId");
+        const currentPage = window.location.pathname.split("/").pop(); // Get the current filename
+    
+        if (!loggedInUserId && currentPage !== "index.html") {
+            // If not logged in & not on the login page, redirect to login
+            window.location.href = "index.html";
+        } else if (loggedInUserId && currentPage === "index.html") {
+            // If logged in & trying to access login, go to dashboard
+            window.location.href = "dashboard.html";
+        }
+    });
+    
 
-});
+

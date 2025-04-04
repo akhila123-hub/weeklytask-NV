@@ -40,6 +40,25 @@ nav a {
     font-weight:bold;
 }
 
+.ord {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 8px 15px;
+}
+.ord i {
+    font-size: 32px; /* Adjust size */
+}
+
+.ord:hover {
+    color: #ffcc00; /* Change color on hover */
+    transform: scale(1.1);
+}
+
 .banner {
     position: relative;
     width: 100%;
@@ -458,4 +477,53 @@ button.remove-item:hover {
 
 #user-options button:hover {
     background-color: #ddd;
+}
+.icons {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-icon, .cart-icon {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 60px;
+    background: rgb(191, 198, 220);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    width: 270px;
+    padding: 20px;
+    text-align: center;
+    z-index: 100;
+}
+
+.dropdown p {
+    
+        margin: 50px 0;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 0;  
+        color: black;/* Reduce default line spacing */
+    }
+
+
+.dropdown button {
+    width: 100%;
+    padding: 8px;
+    background: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.dropdown button:hover {
+    background: darkred;
 }
